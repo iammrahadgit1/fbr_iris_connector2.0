@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- Tree/List View -->
+    <record id="view_fbr_option_list" model="ir.ui.view">
+        <field name="name">fbr.option.tree</field>
+        <field name="model">fbr.option</field>
+        <field name="arch" type="xml">
+            <list string="FBR Options">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="type"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_fbr_option_form" model="ir.ui.view">
+        <field name="name">fbr.option.form</field>
+        <field name="model">fbr.option</field>
+        <field name="arch" type="xml">
+            <form string="FBR Option">
+                <sheet>
+                    <group>
+                        <field name="code"/>
+                        <field name="name"/>
+                        <field name="type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_fbr_option" model="ir.actions.act_window">
+        <field name="name">FBR Options</field>
+        <field name="res_model">fbr.option</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create and manage FBR dropdown options loaded from FBR API.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_fbr_option"
+              name="FBR Options"
+              parent="stock.menu_stock_config_settings"
+              action="action_fbr_option"
+              sequence="20"/>
+</odoo>

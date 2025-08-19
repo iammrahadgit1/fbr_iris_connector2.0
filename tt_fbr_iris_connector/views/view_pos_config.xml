@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_fbr_configuration" model="ir.ui.view">
+        <field name="name">fbr.pos.view.form.inherit</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page name="fbr_configuration" string="E-Invoicing Configuration">
+
+                        <group>
+                            <group> 
+                                <field name="e_invoicing"/>
+                                <field name="enable_fbr_integration" invisible="e_invoicing==False"/>
+                            </group>
+                            <group>
+                                <field name="fbr_token_url" invisible="e_invoicing==False"/>
+                                <field name="fbr_bearer_token" invisible="e_invoicing==False"/>
+                                <field name="fbr_pos_server_fee"/>
+                                <field name="fbr_annexure_id"/>
+                            </group>
+                            <group>
+                                <field name="seller_ntn_cnic" invisible="e_invoicing==False"/>
+                                <field name="seller_business_name" invisible="e_invoicing==False"/>
+                                <field name="seller_province" invisible="e_invoicing==False"/>
+                                <field name="seller_address" invisible="e_invoicing==False"/>
+                                <field name="buyer_province" invisible="e_invoicing==False"/>
+                                <field name="pos_service_fee_product_id" invisible="e_invoicing==False"/>
+                            </group>
+                            <!-- <group name="fbr_taxes" string="FBR Taxes" invisible="e_invoicing==False">
+                                <field name="show_all_taxes_in_print" />
+                                <field name="taxes_to_show_in_print" widget="many2many_tags" options="{'no_create': True}" placeholder="Select Taxes for Unregistered Customers"/>
+                            </group> -->
+                        </group>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>

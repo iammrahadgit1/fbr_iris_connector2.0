@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="dx_pos_receipt_table_design.OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('pos-receipt')]" position="replace">
+            <div class="pos-receipt" style="width: 72mm; font-size: 12px; font-family: 'Segoe UI', Tahoma, sans-serif; color: #333; margin: 0 auto;">
+
+                <!-- Header -->
+               <img t-attf-src="/web/image?model=res.company&amp;id={{props.data.headerData.company.id}}&amp;field=logo"
+                         alt="Logo" class="pos-receipt-logo"/>
+                <!-- <t t-if="!props.data.headerData.company.logo">
+                    <h2 class="pos-receipt-center-align">
+                        <t t-esc="props.data.headerData.company.name"/>
+                    </h2>
+                </t> -->
+                <!-- <div class="pos-receipt-contact"> -->
+                    <!-- <t t-if="props.data.headerData.company.phone">
+                        <div>Tel:<t t-esc="props.data.headerData.company.phone"/></div>
+                    </t> -->
+                    <!-- <t t-if="props.data.headerData.company.vat">
+                        <div><t t-esc="props.data.headerData.company.vat_label"/>:
+                            <t t-esc="props.data.headerData.company.vat"/></div>
+                    </t> -->
+                    <!-- <t t-if="props.data.headerData.header">
+                        <div style="white-space:pre-line"><t t-esc="props.data.headerData.header" /></div>
+                    </t> -->
+                    <!-- <div style="border-style: double;font-size:16px;width:25%;margin: auto;text-align:center;">
+                        <t t-esc="props.data.name.split('-')[2]"/>
+                    </div> -->
+                    <div style="text-align: center;">--------------------------------</div>
+                        <!-- <t t-if="props.data.partner" style=" font-size: 16px;">
+                            <b>Customer:</b> <t t-esc="props.data.partner.name"/>
+                        </t> -->
+                    <!-- </div> -->
+                    <div style="font-size: 11px; text-align: center; margin-bottom: 8px;">
+                        <t t-if="props.data.headerData.company.phone">
+                            📞 <t t-esc="props.data.headerData.company.phone" />
+                            <t t-if="props.data.headerData.company.phone"> | </t>
+                        </t>
+                         <t t-if="props.data.headerData.company.website">🌐
+                            <a t-att-href="props.data.headerData.company.website" style="color: #333; text-decoration: none;">
+                                <t t-esc="props.data.headerData.company.website" />
+                            </a>
+                            
+                        </t>
+                    </div>
+
+                     <t t-if="props.data.cashier">
+                            <div>👨‍💼 Served by: <t t-esc="props.data.cashier" /></div>
+                        </t>
+                    <!-- Order Info and Cashier -->
+                    <div style="font-size: 11px; text-align: left; font-weight: bold; margin-bottom: 6px;">
+                        <div>
+                            <t t-esc="props.data.name" />
+                            <t t-if="props.data.date"> | <t t-esc="props.data.date" /></t>
+                        </div>
+                       
+                    </div>
+
+                    <!-- Company Contact Info -->
+                    
+
+                    <t t-if="props.data.headerData.company.vat">
+                        <div style="text-align: center; font-size: 11px;">
+                            <t t-esc="props.data.headerData.company.vat_label" />:
+                            <t t-esc="props.data.headerData.company.vat" />
+                        </div>
+                    </t>
+
+                    <t t-if="props.data.headerData.header">
+                        <div style="text-align: center; white-space: pre-line; font-style: italic; font-size: 11px; margin-top: 4px;">
+                            <t t-esc="props.data.headerData.header" />
+                        </div>
+                    </t>
+
+
+                <div style="border-top: 1px dashed #aaa; margin: 8px 0;"></div>
+
+                <t t-if='props.data.partner'>
+                    <div style="font-size: 14px; font-weight: bold;">
+                        Customer:
+                        <t t-esc='props.data.partner.name' />
+                    </div>
+                </t>
+  
+                <!-- Order Lines -->
+                <table class="orderlines" style="width: 100%; font-size: 11px; border-collapse: collapse; margin-top: 10px;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid #000; background-color: #f0f0f0;">
+                            <th style="text-align: left; padding: 4px;">Qty</th>
+                            <th style="text-align: left; padding: 4px;">Item</th>
+                            <th style="text-align: center; padding: 4px;">Price</th>
+                            <th style="text-align: center; padding: 4px;">Tax%</th>
+                            <th style="text-align: center; padding: 4px;">Tax </th>
+                            <th style="text-align: center; padding: 4px;">Total</th>
+                        </tr>
+                    </thead>
+                   <tbody>
+                        <t t-foreach="props.data.orderlines" t-as="line" t-key="line.productName">
+
+                            <t t-if="line &amp;&amp; (!line.is_service_charge || false)">
+                                <tr style="border-bottom: 1px dashed #ccc;">
+                                    <td style="padding: 4px;"><t t-esc="Math.round(line.qty)" /></td>
+                                    <td style="padding: 4px;">
+                                        <div><t t-esc="line.productName" /></div>
+                                        <t t-if="line.discount != 0">
+                                            <div style="font-size: 10px; color: #d9534f;">Disc: <t t-esc="line.discount" />%</div>
+                                        </t>
+                                        <li t-if="line.customerNote" class="text-break" style="font-size: 10px; color: #856404; background-color: #fff3cd; padding: 2px; border-radius: 3px; margin-top: 2px;">
+                                            <i class="fa fa-sticky-note me-1" title="Customer Note" />
+                                            <t t-esc="line.customerNote"/>
+                                        </li>
+                                    </td>
+                                    <td style="text-align: center;"><t t-esc="line.oldUnitPrice" t-if="line.oldUnitPrice" /> <t t-esc="line.unitPrice"/></td>
+                                    <td t-if="line.taxes" class="tax-info">
+                                        <t t-foreach="line.taxes" t-as="tax" t-key="tax.name">
+                                            <t t-if="tax_index !== 0"> | </t>
+                                            <span>
+                                                <!-- <t t-esc="tax.name"/>  -->
+                                                <t t-if="tax.amount_type == 'percent'">
+                                                    <t t-esc="tax.amount"/>%
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-esc="tax.amount"/>
+                                                </t>
+                                            </span>
+                                        </t>
+                                    </td>
+
+
+                                    <!-- </li> -->
+                                    <td style="text-align: center;"><t t-esc="Math.round(line.tax_amount)" /></td>
+                                    <td style="text-align: center;"><t t-esc="line.price" /></td>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+
+                <!-- Totals --><!-- Totals Section -->
+<table style="margin-top: 12px; margin-left: auto; font-size: 12px; width: 60%;">
+                    <tr>
+                        <td style="text-align: left;">Subtotal</td>
+                        <td style="text-align: right;"><t t-esc="props.formatCurrency(props.data.amount_total - props.data.amount_tax)" /></td>
+                    </tr>
+                    <t t-if="props.data.tax_details.length > 0">
+                        <tr>
+                            <td style="text-align: left;">Total Taxes</td>
+                            <td style="text-align: right;"><t t-esc="props.formatCurrency(props.data.amount_tax, false)" /> <t t-esc="props.data.currency_symbol" /></td>
+                        </tr>
+                    </t>
+                    <t t-if="props.data.total_discount">
+                        <tr>
+                            <td style="text-align: left;">Discounts</td>
+                            <td style="text-align: right;"><t t-esc="props.formatCurrency(props.data.total_discount)" /></td>
+                        </tr>
+                    </t>
+                     <tr>
+                        <td style="text-align: left;">Total</td>
+                        <td style="text-align: right;"><t t-esc="props.formatCurrency(props.data.amount_total)" /></td>
+                    </tr>
+                    <t t-foreach="props.data.paymentlines" t-as="line" t-key="line.name + line.amount">
+                        <tr>
+                            <td style="text-align: left;"><t t-esc="line.name" /></td>
+                            <td style="text-align: right;"><t t-esc="props.formatCurrency(line.amount, false)" /></td>
+                        </tr>
+                    </t>
+
+                    <tr class="receipt-change" style="font-weight: bold;">
+                        <td style="text-align: left;">CHANGE</td>
+                        <td style="text-align: right;"><t t-esc="props.formatCurrency(props.data.change)" /> <t t-esc="props.data.currency_symbol" /></td>
+                    </tr>
+                </table>
+
+
+                <!-- QR Code & FBR Logo -->
+                <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; gap: 30px;">
+                    <div style="text-align: center;">
+                        <img src="/dx_pos_receipt_table_design/static/description/fbrlogo.png" style="width: 90px; height: auto;" alt="FBR Logo"/>
+                    </div>
+                    <t t-if="props.data.fbr_invoice_number">
+                        <div style="text-align: center;">
+                            <img t-att-src="'/report/barcode/QR/' + props.data.fbr_invoice_number + '?width=100'" style="width: 100px; height: 100px;" />
+                            <div style="font-size: 11px;">Scan to verify invoice</div>
+                        </div>
+                    </t>
+                    <t t-if="!props.data.fbr_invoice_number">
+                        <div style="text-align: center; font-size: 11px; color: #856404;">
+                            FBR Invoice not generated yet.
+                        </div>
+                    </t>
+                </div>
+
+                <!-- POS QR -->
+                <t t-if="props.data.pos_qr_code">
+                    <br/>
+                    <div style="text-align: center; font-size: 12px;">Scan me to request an invoice for your purchase.</div>
+                    <div style="text-align: center;">
+                        <img id="posqrcode" t-att-src="props.data.pos_qr_code" style="width: 90px; height: 90px; margin-top: 5px;" />
+                    </div>
+                </t>
+
+                <!-- Removed ticket_code section -->
+
+                <div t-if="props.data.footer" style="text-align: center; margin-top: 20px;">
+                    <t t-out="props.data.footer" />
+                </div>
+
+                <div style="text-align: center; margin-top: 10px; font-weight: bold; border-top: 1px dashed #000; padding-top: 10px;">
+                    Thank You for Shopping with Us!
+                </div>
+
+                <div class="after-footer">
+                    <t t-foreach="props.data.paymentlines" t-as="line" t-key="line_index">
+                        <t t-if="line.ticket">
+                            <div style="margin-top: 10px; font-size: 10px;">
+                                <t t-out="line.ticket" />
+                            </div>
+                        </t>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </t>
+</templates>

@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="view_product_pct_codes_list" model="ir.ui.view">
+        <field name="name">product.pct.code.tree</field>
+        <field name="model">product.pct.code</field>
+        <field name="arch" type="xml">
+            <list string="Product PCT Codes">
+                <field name="name"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_product_pct_codes_form" model="ir.ui.view">
+        <field name="name">product.pct.code.form</field>
+        <field name="model">product.pct.code</field>
+        <field name="arch" type="xml">
+            <form string="Product PCT Code">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_product_pct_codes" model="ir.actions.act_window">
+        <field name="name">Product PCT Codes</field>
+        <field name="res_model">product.pct.code</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_stock_product_pct_code"
+          name="Product PCT Codes"
+          parent="stock.menu_stock_config_settings"
+          action="tt_fbr_iris_connector.action_product_pct_codes"
+          sequence="20"/>
+</odoo>

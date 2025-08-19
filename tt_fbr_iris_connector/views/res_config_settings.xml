@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="res_config_settings_view_form_fbr">
+        <field name="name">res.config.settings.view.form.inherit.sh_pos_fbr_connector</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+
+         <xpath expr="//form" position="inside">
+                <app data-string="FBR Connector" string="FBR Connector" name="tt_fbr_iris_connector" groups="base.group_user" notApp="0">
+                    <block title="E Invoice Configuration">
+                        <setting>
+                            <label for="enable_fbr_integration"/>
+                            <field name="enable_fbr_integration"/>
+                        </setting>
+                        <hr/>
+                        <setting>
+                            <label for="fbr_token_url" string="Production URL"/>
+                            <field name="fbr_token_url" invisible="not enable_fbr_integration"/>
+                        </setting>
+                        <setting>
+                            <label for="fbr_bearer_token"/>
+                            <field name="fbr_bearer_token" invisible="not enable_fbr_integration"/>
+                        </setting>
+                        <setting invisible="enable_fbr_integration">
+                            <label for="fbr_sandbox_url"/>
+                            <field name="fbr_sandbox_url"/>
+                        </setting>
+                        <setting invisible="enable_fbr_integration">
+                            <label for="fbr_sandbox_token"/>
+                            <field name="fbr_sandbox_token"/>
+                        </setting>
+                         
+                    </block>
+                    <!-- <block title="Files Centralization" id="files_centralization_section"/> -->
+                </app>
+            </xpath>
+
+      
+        
+        
+        </field>
+    </record>
+      <record id="action_tt_fbr_iris_connector_configuration" model="ir.actions.act_window">
+            <field name="name">FBR IRIS Connector Settings</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module': 'tt_fbr_iris_connector', 'bin_size': False}</field>
+        </record>
+
+        <menuitem id="menu_tt_fbr_iris_connector_root"
+              name="Fbr IRIS Connector"
+              web_icon="aw_donation_management,static/description/icon.png"
+              sequence="10"
+              groups="base.group_user"/>
+
+        <menuitem id="menu_tt_fbr_iris_connector_settings"
+              name="Settings"
+                parent="tt_fbr_iris_connector.menu_tt_fbr_iris_connector_root"
+                action="tt_fbr_iris_connector.action_tt_fbr_iris_connector_configuration"
+                sequence="1"
+                groups="base.group_user"/>
+</odoo>

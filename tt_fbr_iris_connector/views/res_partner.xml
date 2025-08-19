@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="view_fbr_partner" model="ir.ui.view">
+        <field name="name">res.partner.fbr</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//notebook" position="inside">
+                <page string="FBR Details">
+                    <group>
+                       <group>
+                            <field name="ntn" string="Registration No"/>
+                             <button name="check_fbr_registration"
+                        type="object"
+                        string="Verify"
+                        class="oe_highlight"/>
+                            <field name="region" widget="radio"/>
+                        </group>
+                        <group>
+                            <field name="fbr_registration_type"/>
+                            <field name="fbr_address" placeholder="Name of City"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+            <!-- Correct way to insert button into existing header -->
+            <!-- <xpath expr="//header" position="inside">
+                <button name="check_fbr_registration"
+                        type="object"
+                        string="Verify"
+                        class="oe_highlight"/>
+            </xpath> -->
+
+        </field>
+    </record>
+</odoo>

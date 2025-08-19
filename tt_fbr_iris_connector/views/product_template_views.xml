@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_product_template_form_inherit_fbr" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.fbr</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+        <xpath expr="//header" position="inside">
+            <button name="action_load_fbr_options" type="object" string="Load FBR Data" class="oe_highlight"/>
+        </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page name="fbr" string="FBR Details">
+                    <group>
+                        
+                        <group name="Fbr" string="Fbr Details">
+                            <field name="scenario_id" />
+                            <field name="fbr_province_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="fbr_document_type_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="fbr_hs_code" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="fbr_uom_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="fbr_sale_type_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="fbr_rate_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="fbr_sro_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="fbr_sro_item_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="fbr_general_sro_item_id" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                          
+                            
+                        </group>
+                     
+                      
+
+                    </group>
+                </page>
+                
+            </xpath>
+        </field>
+    </record>
+</odoo>

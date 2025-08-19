@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_pos_order_form_invoice_fbr" model="ir.ui.view">
+        <field name="name">pos.order.form.inherit.fbr</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="FBR Integration">
+                    <group>
+                            <field name="fbr_invoice_number"/>
+                            <field name="fbr_response"/>
+                            <field name="fbr_status" 
+                            readonly="1"
+                            />
+                            <field name="fbr_error_message"/>
+                    </group>
+                    <group>
+                        
+                    </group>
+                   
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

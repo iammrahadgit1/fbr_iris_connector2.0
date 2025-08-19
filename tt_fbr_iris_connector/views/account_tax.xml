@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="view_fbr_taxes" model="ir.ui.view">
+        <field name="name">fbr.tax.view.form.inherit</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="fbr" string="FBR Details">
+                    <group>
+                        <group>
+                            <field name="fbr_tax_type" />
+                            <field name="fbr_rate_id" 
+                            invisible="fbr_tax_type != 'sales_tax'"
+                            />
+                            
+                        </group>
+                        <group>
+                          
+                        </group>
+                    </group>
+                    
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

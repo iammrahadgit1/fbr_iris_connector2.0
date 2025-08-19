@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="view_fbr_company_details" model="ir.ui.view">
+        <field name="name">res.company.fbr.form.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                    <page name="fbr_configuration" string="E-Invoicing Configuration">
+                        <group>
+                            <group>
+                                <field name="enable_fbr_integration"/>
+                            </group>
+                            <group>
+                                <field name="fbr_token_url" invisible="not enable_fbr_integration"/>
+                                <field name="fbr_bearer_token" invisible="not enable_fbr_integration"/>
+                            </group>
+                            <group>
+                                <field name="seller_ntn_cnic"/>
+                                <field name="seller_business_name"/>
+                                <field name="seller_province"/>
+                                <field name="seller_address"/>
+                                <field name="buyer_province"/>
+                            </group>
+                        </group>
+                    </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
